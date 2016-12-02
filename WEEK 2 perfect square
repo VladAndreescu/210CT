@@ -1,0 +1,45 @@
+//pseudocode
+
+/*
+
+FUNCTION square( integer n)
+ integer i
+ for i <- 1 to n, i <- i+1
+    if (i*i) = n THEN
+        return i*i
+    else if (i*i) > n THEN
+        return (i-1)*(i-1)
+
+*/
+
+
+#include <iostream>
+
+using namespace std;
+
+int square (int n)
+{
+    for(int i=1; i<=n; i++)
+        if(i*i==n)
+            return i*i;
+        else if (i*i > n)
+            return (i-1)*(i-1);
+
+
+
+
+}
+
+int main()
+{
+    int n;
+    cout<<"Write a number: ";
+    cin>>n;
+    cout<<"The highest perfect square which is less or equal to its parameter is: ";
+    cout<<square(n);
+
+    return 0;
+}
+
+
+
