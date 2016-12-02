@@ -1,0 +1,48 @@
+/*
+PSEUDOCODE
+----------------------------------------------------
+FUNCTION reversestring( string sentance)
+
+    delimiter <- keeps the string until it finds a " "
+
+    while delimiter != NULL
+        ADD delimiter in reversed on position 0
+        ADD a " " on position 0
+        delimiter <- let the function know that it should search the same string
+
+    RETURN reversed
+
+
+------------------------------------------------------
+*/
+
+
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+string reversestring(string sentence){
+char* delimiter;
+delimiter = strtok((char*)sentence.c_str()," ");// we set delimiter to search in string until it finds a " "
+string reversed = ""; // we use second string to store the words in reverse order
+while(delimiter != NULL)
+    {
+        reversed.insert(0 , delimiter);// insert the word on the position 0
+        reversed.insert(0 , " "); // insert the " " behind the word just inserted
+        delimiter = strtok(NULL , " "); // this function helps program know that we continue searching in the same string
+
+
+    }
+
+return reversed;
+}
+
+int main()
+{
+    string sentence;
+    cout<<"enter the sentence"<<endl;
+    getline(cin,sentence);
+
+    cout<<"the reversed string is :"<<reversestring(sentence)<<endl;
+    return 0;
+}
