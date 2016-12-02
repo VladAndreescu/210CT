@@ -1,0 +1,126 @@
+#include <iostream>
+using namespace std;
+//Nodes and lists use public data members for convenience
+//This may make some software engineers froth at the mouth
+
+class Node
+{
+public:
+  int value; //This could really be any type
+  Node* next;
+  Node* prev;
+  Node(int val){
+    cout << "Node constructr!" <<endl;
+    this->value=val;
+    this->next=(Node*)0;
+    this->prev=(Node*)0;
+  }
+  ~Node(){
+    cout << "Node destructor" <<endl;
+    cout << "I had the value "<<this->value <<endl;
+  }
+};
+class List
+{
+
+public:
+  Node* head;
+  Node* tail;
+
+  List(){
+    cout << "List Constructor!" <<endl;
+    this->head=0;
+    this->tail=0;
+  }
+  ~List(){
+    cout << "List destructor!" <<endl;
+    cout << "Todo: properly delete nodes..." <<endl;
+  }
+  void insert(Node* n, Node* x){
+    //I addapted the list in order to add a new head node if there is one
+    if (n!=0){
+      x->next=n->next;
+      n->next=x;
+      x->prev=n;
+      if (x->next!=0)
+        x->next->prev=x;
+    }
+    if (this->head==0){
+      this->head=x;
+      this->tail=x;
+      x->prev=0;
+      x->next=0;
+    }else if (this->tail=n){
+      this->tail=x;
+    }
+    //adding a new head when the list already has one
+    else if(this->head != 0)
+        {
+            x->next = this->head;
+            x->prev = NULL;
+            this->head->prev = x;
+            this->head = x;
+
+        }
+
+  }
+
+
+
+void deleteNode(int value){
+
+Node* current = this->head;
+// the function searches for that node with value equal with the value that we entered
+while(current != 0 && current->value != value)
+    current = current->next;
+
+if(current != 0)
+    //checks if the current node is head and moves it to head->next
+    {
+        if(current == this->head)
+            this->head = this->head->next;
+    //checks if the current node is tail and moves it to tail->prev
+        else if (current == this->tail)
+            this->tail = this->tail->prev;
+
+        if(current->next != 0)
+            current->next->prev = current->prev;
+
+        if(current->prev !=0)
+            current->prev->next = current->next;
+
+        delete current;
+
+
+    }
+
+
+
+}
+
+
+  void display(){
+    Node* i=this->head;
+    std::cout << "List: " ;
+    while(i!=0){
+      std::cout << i->value << ",";
+      i=i->next;
+    }
+    std::cout << std::endl;
+  }
+};
+
+int main(int argc, char *argv[])
+{
+  List* l=new List();
+  l->insert(0,new Node(0));
+  l->insert(l->tail,new Node(1));
+  l->insert(l->tail,new Node(2));
+  l->insert(l->tail,new Node(3));
+  l->insert(l->tail,new Node(4));
+  l->insert(0,new Node(7));
+  l->deleteNode(2);
+  l->display();
+  delete l;
+  return 0;
+}
