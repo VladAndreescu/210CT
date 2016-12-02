@@ -1,0 +1,58 @@
+/*
+PSEUDOCODE
+----------------------
+FUNCTION deletevowels(character word[20], character vowels[], integer i)
+
+    lenght <- size of word
+
+    IF i > lenght-1 THEN
+        RETURN "The word contains 0 letters"
+    IF the current letter from the word is a vowel THEN:
+        CALL FUNCTION deletevowels(word, vowels, i+1)
+        DELETE vowel as COPY the content of second string in the first string
+    ELSE
+        CALL FUNCTION deletevowels(word, vowels, i+1)
+
+
+    RETURN word
+
+----------------------
+
+*/
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+string deletevowels(char word[20],char vowels[],int i)
+{
+    int lenght=strlen(word);
+
+    if(i>lenght-1)
+        return "the word contains 0 letters";
+    if(strchr (vowels,word[i]) != 0)
+    {
+        deletevowels(word,vowels,i+1);
+        strcpy(word+i,word+i+1);
+    }
+    else
+        deletevowels(word,vowels,i+1);
+
+
+
+    return word;
+}
+
+
+int main()
+{
+    char word[20],vowels[]="aeiouAEIOU";
+    cout<<"please write a word: ";
+    cin.get(word,20);
+    cout<<"the word is: ";
+    cout<<word<<endl;
+    int i=0;
+    cout<<"the word without vowels is : ";
+    cout<<deletevowels(word,vowels,i)<<endl;
+
+}
