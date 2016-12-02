@@ -1,0 +1,6 @@
+4.	Look back at last week's tasks. Describe the run-time bounds of these algorithms using Big O notation. 
+WEEK 1:
+	“Shuffle an array” has O(n) complexity because the function goes through the program  n time (one single loop)
+	“Number of trailing 0s” has O(log(n)) when the number can be divided by 5
+And O(1) when the number can’t be devided by 5
+	“highest perfect square” has a complexity of O(n) because we use one single for loop and the function goes just n times through program.
