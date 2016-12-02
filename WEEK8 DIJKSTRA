@@ -1,0 +1,109 @@
+class Vertex:  
+  
+    def __init__(self, vertex):  
+        self.vertex = vertex  
+        self.adjacentvertices = {}  
+        self.tw = 0  
+        self.previous = None  
+  
+    def add_adjacentvertex(self, vertex, w):  
+        self.adjacentvertices[vertex] = w  
+  
+    def show_w(self, vertex):  
+        return self.adjacentvertices[vertex]  
+  
+    def show_adjacentvertices(self):  
+        return self.adjacentvertices.keys()  
+
+    def show_tw(self):
+        return self.tw
+
+    def set_tw(self, tw):  
+        self.tw = tw 
+
+     
+  
+class Graph:  
+  
+    def __init__(self):  
+        self.graphdict = {}  
+  
+    def add_Vertex(self, vertex):  
+        newVertex = Vertex(vertex)  
+        self.graphdict[vertex] = Vertex(vertex)  
+        return newVertex  
+  
+    def add_Edge(self, vertex1, vertex2, w):  
+        self.graphdict[vertex1].add_adjacentvertex(self.graphdict[vertex2], w)  
+        self.graphdict[vertex2].add_adjacentvertex(self.graphdict[vertex1], w)  
+        
+  
+  
+    def show_vertices(self):  
+        return self.graphdict.keys()  
+   
+  #show weights for all egdes of a vertex
+    def show_w(self, vertex):  
+        if vertex in self.graphdict:  
+            #print (self.graphdict[vertex].adjacentvertices.values())  
+            return (self.graphdict[vertex].adjacentvertices.values())  
+        else:  
+            return None  
+  
+
+
+    def Dijkstra(graph, source, destination):
+
+        
+        current = source
+        for n in graph.show_vertices():
+            # I set a tentative weight 0 for start node and infinity for others
+            graph.graphdict[n].set_tw(float("inf"))
+        graph.graphdict[source].set_tw(0)
+        visited = []
+        while current != destination: 
+            for node in graph.graphdict[current].show_adjacentvertices():
+                if graph.graphdict[current].show_tw() + graph.graphdict[current].show_w(node) < node.tw :
+                    node.set_tw(graph.graphdict[current].show_tw() + graph.graphdict[current].adjacentvertices[node])
+                    node.previous = current #store the current node for next node as previous. I used it to build the path back way
+            visited.append(current)
+            minimum = float("inf")
+            for n in graph.graphdict[current].show_adjacentvertices():
+                if n.vertex not in visited and n.tw < minimum:  
+                    current = n.vertex
+                    minimum = n.tw
+                    
+        #starting from the destination program add in path every previous nodes stored
+        path = []
+        while destination != source:
+            path.append(destination)
+            destination = graph.graphdict[destination].previous
+        path.append(destination)
+                
+        # printing in the reverse order of storage so from source to destination       
+        print (path[::-1], "which has the tentative weight of: :",  graph.graphdict[path[0]].tw)
+if __name__ == "__main__":  
+      
+    graph = Graph()  
+  
+    graph.add_Vertex("A")  
+    graph.add_Vertex("B")  
+    graph.add_Vertex("C")  
+    graph.add_Vertex("D")  
+    graph.add_Vertex("E")  
+    graph.add_Vertex("F")
+  
+    graph.add_Edge("A", "B", 7)  
+    graph.add_Edge("A", "F", 14)  
+    graph.add_Edge("A", "C", 9)  
+    graph.add_Edge("B", "C", 10)  
+    graph.add_Edge("B", "D", 15)  
+    graph.add_Edge("C", "E", 2)
+    graph.add_Edge("C", "D", 11)
+    graph.add_Edge("D", "E", 6)
+    graph.add_Edge("E", "F", 9)
+    
+    
+
+    graph.Dijkstra("A", "E")
+    
