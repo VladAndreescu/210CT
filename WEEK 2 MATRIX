@@ -1,0 +1,140 @@
+/*
+PSEUDOCODE
+----------------
+FUNCTION readmatrix (MATRIX X)
+	FOR i <- 0 to n-1, i<-i+1
+		FOR j <- 0 to n-1, j<-j+1
+			READ X[i][j]
+
+FUNCTION writematrix (MATRIX X)
+	FOR i <- 0 to n-1, i<-i+1
+		{FOR j <- 0 to n-1, j<-j+1
+			WRITE X[i][j]
+		}
+		
+		
+FUNCTION addition (MATRIX X1, MATRIX X2, MATRIX result)
+	FOR i <- 0 to n-1, i<-i+1
+		FOR j <- 0 to n-1, j<-j+1
+			result[i][j] <- X1[i][j] + X2[i][j]
+			
+FUNCTION multiply (MATRIX X1, MATRIX X2, MATRIX result)
+	FOR i <- 0 to n-1, i<-i+1
+        	FOR j <- 0 to n-1, j<-j+1
+        		FOR k <- 0 to n-1, k<-k+1
+				result[i][j] <- result[i][j] + X1[i][k] * X2[k][j]
+			
+			
+FUNCTION multiplywithint (MATRIX X1, INTEGER number, MATRIX result)
+	FOR i <- 0 to n-1, i<-i+1
+		FOR j <- 0 to n-1, j<-j+1
+			result[i][j] <- X1[i][j] * number
+
+FUNCTION substraction (MATRIX X1, MATRIX X2, MATRIX result)
+	FOR i <- 0 to n-1, i<-i+1
+		FOR j <- 0 to n-1, j<-j+1
+			result[i][j] <- X1[i][j] - X2[i][j]
+			
+
+MAIN
+
+READ n
+
+CALL FUNCTION readmatrix(B)
+CALL FUNCTION readmatrix(C)
+CALL FUNCTION multiply (B, C, ResulfOfMultiply)
+CALL FUNCTION addition (B, C, ResulfOfAddition)
+CALL FUNCTION multiplywithint (ResulfOfAddition, 2 , ResulfOfMultiplyWithInteger)
+CALL FUNCTION substraction(ResulfOfMultiply, ResulfOfMultiplyWithInteger, FinalResult)
+CALL FUNCTION writematrix(FinalResult)
+----------------
+*/
+
+
+
+
+#include <iostream>
+using namespace std;
+int a[10][10], b[10][10], c[10][10], additionBC[10][10], multipliedBC[10][10], multipliedwithint[10][10], finalresult[10][10], n;
+
+void readmatrix(int x[10][10])
+{
+int i,j;
+cout<<"type the matrix's number "<<endl;
+for(i=0;i<n;i++)
+    for(j=0;j<n;j++)
+    {   cout<<"matrix["<<i<<"]["<<j<<"] =";
+        cin>>x[i][j];
+    }
+
+}
+
+
+
+void writematrix(int x[10][10])
+{
+int i,j;
+cout<<"the matrix is: "<<endl;
+for(i=0;i<n;i++)
+    {
+        for(j=0;j<n;j++)
+            cout<<x[i][j]<<" ";
+        cout<<endl;
+    }
+}
+
+void addition(int a[10][10],int b[10][10],int result[10][10]){
+
+for(int i=0;i<n;i++)
+    for(int j=0;j<n;j++)
+        result[i][j]=a[i][j]+b[i][j];
+
+
+
+}
+
+
+void multiply(int a[10][10],int b[10][10],int result[10][10])
+{
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            {for(int k=0;k<n;k++)
+                result[i][j]+=a[i][k]*b[k][j];}
+
+
+}
+
+
+void multiplywithanint(int a[10][10],int thenumber, int result[10][10])
+{
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            result[i][j]=a[i][j]*thenumber;
+
+}
+
+
+void substraction(int a[10][10],int b[10][10],int result[10][10]){
+
+for(int i=0;i<n;i++)
+    for(int j=0;j<n;j++)
+        result[i][j]=a[i][j]-b[i][j];
+}
+
+
+
+int main()
+{
+cout<<"the number n is = ";
+cin>>n;
+readmatrix(b);
+readmatrix(c);
+multiply(b,c,multipliedBC);//multipliedBC keeps the result of B*C
+addition(b,c,additionBC);
+multiplywithanint(additionBC, 2, multipliedwithint);
+substraction(multipliedBC,multipliedwithint,finalresult);
+writematrix(finalresult);
+
+
+return 0;
+}
