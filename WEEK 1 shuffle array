@@ -1,14 +1,42 @@
+#include <iostream>
+#include <time.h>
+#include <stdlib.h> // this library is used for randomize
 
-void shuffle(int toshuffle[], int n)  
-{  
-    int helper;  
-    srand(time(NULL));  
-    for(int i = n-1; i >= 1; i--)  
-    {  
-        int j = rand() % 1 +(n); // this line of code pick a random index from vector  
-        helper =  toshuffle[i];  
-        toshuffle[i] = toshuffle[j];  
-        toshuffle[j] = helper;  
+using namespace std;
+
+void shuffle(int toshuffle[], int n)
+{
+    int helper;
+    srand(time(NULL));
+    for(int i = n-1; i >= 1; i--)
+    {
+        int j = rand() % 1 +(n); // this line of code pick a random index from vector
+        helper =  toshuffle[i];
+        toshuffle[i] = toshuffle[j];
+        toshuffle[j] = helper;
+
+    }
+}
+
+
+
+int main()
+{
+    int toshuffle[100];
+    int n;
+    cout<<"Add how many numbers you want: ";
+    cin>>n;
+    for(int i = 1; i<= n; i++)
+        cin>>toshuffle[i];
+    cout<<"Unshuffled array: ";
+    for(int i = 1; i <= n; i++)
+        cout<<toshuffle[i]<<" ";
+    cout<<endl;
+    cout<<"Shuffled array: ";
+    shuffle(toshuffle,n);
+    for(int i = 1; i <= n; i++)
+        cout<<toshuffle[i]<<" ";
+
+    return 0;
+}
   
-    }  
-} 
