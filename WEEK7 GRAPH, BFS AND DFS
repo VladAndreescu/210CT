@@ -1,0 +1,162 @@
+    """
+PSEUDOCODE
+------------------------
+CLASS Vertex
+	FUNCTION __init__(self , node )
+		self.node <- node
+		create a list of adjacent vertices
+	
+CLASS Graph
+	FUNCTION __init__(self):
+		create a dictionary called graphdict which has vertices as keys and their adjacent vertices as values
+		
+	FUNCTION addVertex(self, vertex)
+		self.vertx <- vertex
+		newVertex <- Vertex(vertex)
+		self.graphdict[vertex] <- []
+		RETURN newVertex
+	
+	FUNCTION addEdge(self, vertex1, vertex2)
+		ADD in graphdict as value vertex2 for key vertex1
+		ADD in graphdict as value vertex1 for key vertex2
+	
+	FUNCTION show_Vertex(self, node):
+		IF node IS IN graphdict THEN
+			RETURN graphdict[node]
+			
+------------------------
+"""
+   
+
+
+
+#I used a Stack for DFS beacuse is a LAST IN FIRST OUT data structure  
+class Stack:
+    def __init__(self):
+        self.items = []
+        
+    def size(self):
+        return len(self.items)
+    
+    def push(self, node):
+        self.items.append(node)
+
+    def pop(self):
+        return self.items.pop()
+
+    
+#I used a Queue for DFS beacuse is a FIRST IN FIRST OUT data structure      
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def size(self):
+        return len(self.items)
+
+    def enqueue(self, node):
+        self.items.insert(0,node)
+
+    def dequeue(self):
+        return self.items.pop()
+
+     
+class Vertex:
+    def __init__(self, node):
+        self.node = node
+        self.adjacentvertices = []
+
+class Graph:
+    def __init__(self):
+        self.graphdict = {}
+
+    def add_Vertex(self,vertex):
+        self.vertex = vertex
+        newVertex = Vertex(vertex)
+        self.graphdict[vertex] = []
+        return newVertex
+#add in graphdict vertex2 as value of key vertex1
+#add in graphdict vertex1 as value of key vertex2
+    def add_Edge(self,vertex1,vertex2):
+        self.graphdict[vertex1].append(vertex2)
+        self.graphdict[vertex2].append(vertex1)
+
+#show the adjancet vertices of  node
+    def show_Vertex(self, node):
+        if node in self.graphdict:
+            print(self.graphdict[node])
+            return self.graphdict[node]
+
+        
+    def DFS(graph, vertex):
+
+        s = Stack()
+        visited = []
+        s.push(vertex)
+        while s.size() > 0:
+            current = s.pop()
+            if current not in visited:
+                visited.append(current)
+            for node in graph.show_Vertex(current):
+                    if node not in visited:
+                        s.push(node)
+        Text = open("DFSfile.txt","w")
+        Text.write(str(visited))
+        Text.close()
+        
+        return visited
+        
+        
+    def BFS(graph,vertex):
+        q = Queue()
+        visited = []
+        q.enqueue(vertex)
+        while q.size() > 0:
+            current = q.dequeue()
+            if current not in visited:
+                visited.append(current)
+            for node in graph.show_Vertex(current):
+                if node not in visited:
+                    q.enqueue(node)
+        Text = open("BFSfile.txt","w")
+        Text.write(str(visited))
+        Text.close()
+        return visited
+                    
+        
+        
+        
+        
+
+
+
+if __name__ == "__main__":
+
+    graph=Graph()
+
+
+    graph.add_Vertex("A")
+    graph.add_Vertex("B")
+    graph.add_Vertex("C")
+    graph.add_Vertex("D")
+    graph.add_Vertex("E")
+    graph.add_Vertex("F")
+    graph.add_Vertex("G")
+    graph.add_Vertex("H")
+    graph.add_Vertex("S")
+    
+
+    graph.add_Edge("A","B")
+    graph.add_Edge("A","S")
+    graph.add_Edge("S","C")
+    graph.add_Edge("S","G")
+    graph.add_Edge("C","F")
+    graph.add_Edge("C","D")
+    graph.add_Edge("C","E")
+    graph.add_Edge("G","F")
+    graph.add_Edge("G","H")
+    graph.add_Edge("H","E")
+    
+    
+    graph.DFS("A")
+    graph.BFS("A")
+    
