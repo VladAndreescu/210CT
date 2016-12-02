@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int TotalofZeros=0;
+int TrailingZeros(int n)
+{
+    if(n%5 != 0 && n/5 == 0)
+        return TotalofZeros;
+    else
+    {
+        TotalofZeros = TotalofZeros+ n/5;
+        return TrailingZeros(n/5);
+    }
+
+
+}
+
+
+
+int main()
+{
+    int number;
+    cout<<"Please type a number: ";
+    cin>>number;
+    if (number < 5)
+        cout<<"Nr has 0 0's";
+    else if (number < 25)
+        cout<<"number has "<<number/5<<" 0's";
+    else if (number >= 25)
+    {
+        TrailingZeros(number);
+        cout<<"Number has: "<<TotalofZeros<<" 0's";
+    }
+
+    return 0;
+}
