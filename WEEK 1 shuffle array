@@ -1,0 +1,14 @@
+
+void shuffle(int toshuffle[], int n)  
+{  
+    int helper;  
+    srand(time(NULL));  
+    for(int i = n-1; i >= 1; i--)  
+    {  
+        int j = rand() % 1 +(n); // this line of code pick a random index from vector  
+        helper =  toshuffle[i];  
+        toshuffle[i] = toshuffle[j];  
+        toshuffle[j] = helper;  
+  
+    }  
+} 
