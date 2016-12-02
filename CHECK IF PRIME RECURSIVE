@@ -1,0 +1,55 @@
+/*
+PSEUDOCODE
+--------------------------------
+FUNCTION IsPrime (integer NumberToCheck, integer first, integer last)
+
+    IF first = last THEN
+        RETURN 0
+
+    IF NumberToCheck  mod first = 0 THEN
+
+        RETURN Number is not prime
+
+    ELSE IF NumberToCheck mod first ≠ 0 THEN
+
+        RETURN Number is prime
+
+    ELSE
+
+        RETURN CALL FUNCTION IsPrime (NumberToCheck, first+1, last)
+
+
+----------------------------------
+
+*/
+
+
+
+#include <iostream>
+
+using namespace std;
+
+string IsPrime(int NumberToCheck, int first, int last)
+{
+    if(first == last)
+        return 0;
+    if(NumberToCheck%first == 0)
+        return "Number is not prime";
+    else if(NumberToCheck%first != 0)
+        return "Number is prime";
+    else
+        return IsPrime(NumberToCheck, first+1, last);
+
+}
+
+
+
+int main()
+{
+    int NumberToCheck;
+    cout<<"please insert a number: ";
+    cin>>NumberToCheck;
+    int first = 2;
+    cout<<IsPrime(NumberToCheck, first, NumberToCheck/2); // is enough to check until last is half of the number
+    return 0;
+}
